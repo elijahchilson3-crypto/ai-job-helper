@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Job Helper</title>
+</head>
+<body>
+  <h1>AI Job Application Helper MVP</h1>
+
+  <p>Paste a job description below:</p>
+  <textarea id="job" rows="8" cols="50"></textarea><br><br>
+  <button onclick="send()">Send</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function send() {
+      const job = document.getElementById("job").value;
+
+      const res = await fetch("/api/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ job })
+      });
+
+      const data = await res.json();
+      document.getElementById("output").innerText = data.message;
+    }
+  </script>
+</body>
+</html>
