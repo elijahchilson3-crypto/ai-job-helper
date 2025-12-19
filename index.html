@@ -1,30 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Job Helper</title>
+  <title>AI Job Application Helper</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 700px;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #4338ca;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin-top: 20px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
 </head>
 <body>
-  <h1>AI Job Application Helper MVP</h1>
+  <div class="container">
+    <h1>AI Job Application Helper</h1>
+    <p>Paste a job description below and get a tailored resume/cover letter snippet:</p>
 
-  <p>Paste a job description below:</p>
-  <textarea id="job" rows="8" cols="50"></textarea><br><br>
-  <button onclick="send()">Send</button>
+    <textarea id="job" placeholder="Paste job description here..."></textarea>
+    <button onclick="send()">Generate</button>
 
-  <pre id="output"></pre>
+    <pre id="output"></pre>
 
-  <script>
-    async function send() {
-      const job = document.getElementById("job").value;
-
-      const res = await fetch("/api/test", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ job })
-      });
-
-      const data = await res.json();
-      document.getElementById("output").innerText = data.message;
-    }
-  </script>
+    <script>
+      async function send() {
+        const job = document.getElementById("job").value;
+        const res = await fetch("/api/test", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ job })
+        });
+        const data = await res.json();
+        document.getElementById("output").innerText = data.message;
+      }
+    </script>
+  </div>
 </body>
 </html>
